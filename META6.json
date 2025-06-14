@@ -1,7 +1,7 @@
 {
   "perl": "6.d",
   "name": "Text::Homoglyph::Cyrillic",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "auth": "zef:slavenskoj",
   "authors": ["Danslav Slavenskoj"],
   "description": "Clean Cyrillic text from look-alike letters (Greek, IPA, Latin)",
