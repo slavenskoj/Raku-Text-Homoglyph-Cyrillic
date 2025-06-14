@@ -1,0 +1,17 @@
+{
+  "perl": "6.d",
+  "name": "Text::Homoglyph::Cyrillic",
+  "version": "0.0.1",
+  "auth": "zef:slavenskoj",
+  "authors": ["Danslav Slavenskoj"],
+  "description": "Clean Cyrillic text from look-alike letters (Greek, IPA, Latin)",
+  "license": "Artistic-2.0",
+  "source-url": "https://github.com/slavenskoj/Raku-Text-Homoglyph-Cyrillic",
+  "provides": {
+    "Text::Homoglyph::Cyrillic": "lib/Text/Homoglyph/Cyrillic.rakumod"
+  },
+  "depends": [],
+  "test-depends": ["Test"],
+  "tags": ["cyrillic", "text-processing", "unicode", "cleaning", "homoglyph"],
+  "api": "1"
+}

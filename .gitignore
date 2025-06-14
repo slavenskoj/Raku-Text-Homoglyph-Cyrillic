@@ -1,0 +1,13 @@
+# Gitignore for Raku (https://raku.org)
+# As part of https://github.com/github/gitignore
+
+# precompiled files
+.precomp
+lib/.precomp
+
+.DS_Store
+lib/.DS_Store
+lib/Lang/.DS_Store
+
+
+.claude/settings.local.json

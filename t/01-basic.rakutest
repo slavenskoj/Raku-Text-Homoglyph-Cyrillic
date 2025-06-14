@@ -1,0 +1,45 @@
+use Test;
+use Text::Homoglyph::Cyrillic;
+
+plan 21;
+
+# Test clean-cyrillic function with Russian words
+is clean-cyrillic('xлеб'), 'хлеб', 'Latin x to Cyrillic х in Russian word for bread';
+is clean-cyrillic('мoлoкo'), 'молоко', 'Latin o to Cyrillic о in Russian word for milk';
+is clean-cyrillic('вoдa'), 'вода', 'Mixed Latin/Cyrillic in Russian word for water';
+is clean-cyrillic('дoм'), 'дом', 'Latin o to Cyrillic о in Russian word for house';
+
+# Test with Serbian words (using ђ, ј, љ, њ, ћ, џ)
+is clean-cyrillic('jезик'), 'језик', 'Latin j to Cyrillic ј in Serbian word for language';
+is clean-cyrillic('љубaв'), 'љубав', 'Latin a to Cyrillic а in Serbian word with љ (love)';
+is clean-cyrillic('њивa'), 'њива', 'Latin a to Cyrillic а in Serbian word with њ (field)';
+is clean-cyrillic('ђaк'), 'ђак', 'Latin a to Cyrillic а in Serbian word with ђ (student)';
+
+# Test with Belarusian words (using ў, і)
+is clean-cyrillic('ўнiверсiтэт'), 'ўніверсітэт', 'Latin i to Cyrillic і in Belarusian word with ў';
+is clean-cyrillic('даўнo'), 'даўно', 'Latin o to Cyrillic о in Belarusian word with ў (long ago)';
+is clean-cyrillic('лiчбa'), 'лічба', 'Latin i to Cyrillic і in Belarusian word (number)';
+
+# Test with Ukrainian words (using є, і, ї, ґ)
+is clean-cyrillic('мiсто'), 'місто', 'Latin i to Cyrillic і in Ukrainian word for city';
+is clean-cyrillic('їжa'), 'їжа', 'Latin a to Cyrillic а in Ukrainian word with ї (food)';
+
+# Test with Greek letters
+is clean-cyrillic('τекст'), 'текст', 'Greek τ to Cyrillic т in word for text';
+is clean-cyrillic('αвτобус'), 'автобус', 'Greek α to Cyrillic а in word for bus';
+
+# Test edge cases
+is clean-cyrillic(''), '', 'Empty string returns empty';
+is clean-cyrillic(' '), ' ', 'Space returns space';
+
+# Test detect-cyrillic-lookalikes function
+my @found = detect-cyrillic-lookalikes('мoлoкo');
+ok @found.elems > 0, 'Lookalikes detected in mixed text';
+ok @found.grep({ $_<char> eq 'o' }), 'Latin o detected as lookalike';
+
+# Test clean-cyrillic-verbose function
+my %result = clean-cyrillic-verbose('кaфa');
+is %result<cleaned>, 'кафа', 'Verbose: cleaned Serbian word correct';
+ok %result<changed>, 'Verbose: change detected in mixed text';
+
+done-testing;
